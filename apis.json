@@ -1,0 +1,100 @@
+{
+    "name": "Knewton",
+    "description": "Knewton is an adaptive learning company that has developed a platform to personalize educational content as well as has developed courseware for higher education concentrated in the fields of science, technology, engineering, and mathematics.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/218-knewton.jpg",
+    "tags": [
+        "adaptive learning",
+        "api not found",
+        "courses",
+        "educatioin",
+        "have api",
+        "marketplaces"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/knewton\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Knewton",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/218-knewton.jpg",
+            "humanURL": "http:\/\/knewton.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/knewton-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.knewton.com\/blog"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/twitter.com\/cutcaster"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/knewton"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/knewton"
+        },
+        {
+            "type": "Email",
+            "url": "press@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "support@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "hello@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "emea@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "asia@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "privacy@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "copyright@knewton.com"
+        },
+        {
+            "type": "Email",
+            "url": "security@knewton.com"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/Knewton"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/knewton"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.knewton.com"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/knewton.com"
+        }
+    ]
+}
