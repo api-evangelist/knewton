@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/reference/authentication/
+docs: https://dev.knewton.com/implementation/authentication-and-authorization/
+credentials_docs: https://dev.knewton.com/implementation/partner-credentials/
+note: Knewton publishes no OpenAPI definition; this profile is captured from the published
+  authentication reference rather than derived from a machine-readable spec.
+summary:
+  types:
+  - oauth2
+  - http
+  api_key_in: []
+  oauth2_flows:
+  - clientCredentials
+  - refreshToken
+schemes:
+- name: OAuth2ClientCredentials
+  type: oauth2
+  flow: clientCredentials
+  token_url: https://api.knewton.com/v0/oauth/token
+  token_endpoint_path: /oauth/token
+  client_authentication: basic
+  client_authentication_detail: 'Authorization: Basic <key>, where <key> is formed by base64
+    encoding <api_key>:<api_secret>'
+  grant_types:
+  - client_credentials
+  - refresh_token
+  scope_parameter:
+    supported: true
+    semantics: external-user-id
+    description: On the client_credentials grant the scope parameter is not a permission
+      scope. It carries the external ID of a previously created user account to be associated
+      with the returned tokens.
+    example_form: scope=user_601726
+  token_lifetime:
+    expires_in_seconds: 15555599
+    approximate: ~180 days
+    response_fields:
+    - access_token
+    - refresh_token
+    - expires_in
+    - expires_at
+  caller: Partner admin user must make the token call.
+  sources:
+  - https://dev.knewton.com/reference/authentication/
+- name: BearerToken
+  type: http
+  scheme: bearer
+  description: All non-token endpoints accept the OAuth access token as a bearer credential.
+    Only the /oauth/token endpoint uses Basic authentication with the partner API key and
+    secret.
+  sources:
+  - https://dev.knewton.com/reference/authentication/
+credential_provisioning:
+  self_service: false
+  description: Each learning application integrated with the Knewton API has a unique partner
+    client ID and secret provided by a Knewton representative. There is no public self-service
+    sign-up for API credentials.
+  docs: https://dev.knewton.com/implementation/partner-credentials/
+authorization_model:
+  style: entitlements
+  description: Authorization is expressed as entitlements on an account, returned on
+    GET /accounts/{account_id}. Most write operations require the partner admin user;
+    read operations are permitted for the partner admin or the account/registration owner.
+  entitlements:
+  - all
+  - knerd
+  - partner_admin
+  - partner_inventory_access
+  - partner_graph_update
+  - partner_graph_ingest
+  - partner_graph_validate
+  - create_learning_instance
+  source: https://dev.knewton.com/reference/accounts/
