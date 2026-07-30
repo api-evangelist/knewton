@@ -1,0 +1,44 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/reference/authentication/
+docs: https://dev.knewton.com/implementation/authentication-and-authorization/
+note: Knewton runs an OAuth 2.0 client_credentials flow but does NOT publish a permission
+  scope registry. The OAuth `scope` parameter is overloaded to carry the external ID of the
+  user account the returned tokens should be associated with, not a permission string. The
+  real permission surface is the account `entitlements` list, captured below and in
+  authentication/knewton-authentication.yml. No scope values are invented here.
+scope_parameter:
+  present: true
+  semantics: external-user-id
+  description: The external ID of a previously created user account to be associated with
+    the returned tokens.
+  example_form: scope=user_601726
+  source: https://dev.knewton.com/reference/authentication/
+schemes:
+- name: OAuth2ClientCredentials
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.knewton.com/v0/oauth/token
+    grant_types:
+    - client_credentials
+    - refresh_token
+scopes: []
+entitlements:
+- name: all
+  description: Full entitlement set.
+- name: knerd
+  description: Internal Knewton entitlement.
+- name: partner_admin
+  description: Partner administrator; required for account, learning-instance and goal
+    write operations.
+- name: partner_inventory_access
+  description: Access to the partner content inventory.
+- name: partner_graph_update
+  description: Update an existing knowledge graph.
+- name: partner_graph_ingest
+  description: Ingest a new knowledge graph.
+- name: partner_graph_validate
+  description: Validate a knowledge graph.
+- name: create_learning_instance
+  description: Create learning instances.
+entitlements_source: https://dev.knewton.com/reference/accounts/

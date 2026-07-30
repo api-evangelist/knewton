@@ -1,0 +1,46 @@
+generated: '2026-07-19'
+method: searched
+source: npm, PyPI, Maven Central, RubyGems registry searches plus the Knewton developer docs
+official_sdks: false
+note: Knewton publishes no first-party client libraries or SDKs. The dev.knewton.com
+  implementation guide index lists no SDK or client-library section, and no package under a
+  Knewton-owned namespace on any registry is a maintained client for the Enterprise Platform
+  API. Because there is no official SDK, no `SDKs` pointer is wired into apis.yml.
+packages: []
+third_party_candidates:
+- language: javascript
+  registry: npm
+  name: knewton-client
+  url: https://www.npmjs.com/package/knewton-client
+  install: npm install knewton-client
+  official: false
+  description: node.js wrapper for accessing Knewton REST apis
+  maintainer_domain: elsevier.com
+  repository: https://github.com/elsevier-ptg-gep/knewton-client
+  note: Published and maintained by Elsevier, a Knewton integration partner, not by Knewton.
+unrelated_namespace_packages:
+- registry: maven
+  group: com.knewton.mapreduce
+  artifact: KassandraMRHelper
+  note: Historic Knewton internal data-infrastructure tooling, not an API client.
+- registry: maven
+  group: com.knewton.dynamok
+  artifact: dynamok-core
+  note: Historic Knewton internal DynamoDB scaling tooling, not an API client.
+registries_probed:
+- registry: npm
+  result: no first-party client
+- registry: pypi
+  result: no package
+- registry: maven-central
+  result: only historic internal infrastructure artifacts under com.knewton.*
+- registry: rubygems
+  result: only historic internal tooling (kgrift)
+- registry: nuget
+  result: no package
+- registry: pkg.go.dev
+  result: no package
+- registry: packagist
+  result: no package
+- registry: crates.io
+  result: no package

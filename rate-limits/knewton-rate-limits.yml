@@ -1,0 +1,90 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/implementation/rate-limits/
+docs: https://dev.knewton.com/implementation/rate-limits/
+signaling:
+  status_code: 429
+  response_body: '{"message": "Too many requests."}'
+  headers:
+  - name: X-Knewton-Rate-Exceeded
+    description: Indicates which limit class was exceeded.
+    values:
+    - ip-limited
+    - token-limited
+    - partner-limited
+    - partner-soft-limited
+  - name: X-Knewton-Rate-Delay
+    description: Delay in milliseconds applied before responding, on IP-based throttling.
+  retry_after_header: false
+retry_guidance: When Knewton responds with a 429 Error, a partner application should assume
+  that Knewton has not processed any part of the request, wait for the rate limit quota to
+  replenish, and then resend the request. Exponential backoff is recommended.
+limit_classes:
+- class: ip
+  description: Per source IP address.
+  limits:
+  - scope: OAuth token requests
+    limit_count: 100
+    period: second
+  - scope: Unauthenticated requests to any other URI
+    limit_count: 10
+    period: second
+- class: token
+  description: Per access token and API endpoint.
+  limits:
+  - endpoint: POST /accounts
+    limit_count: 750
+    period: minute
+    per: token
+  - endpoint: POST /registrations
+    limit_count: 375
+    period: minute
+    per: token
+  - endpoint: POST /learning-instances
+    limit_count: 750
+    period: minute
+    per: token
+  - endpoint: GET /registrations/{id}/recommendation
+    limit_count: 15
+    period: minute
+    per: token
+  - endpoint: POST /learning-instances/{id}/metrics/status-and-progress
+    limit_count: 225
+    period: minute
+    per: token
+- class: partner
+  description: Applied across all of a partner's access tokens for an endpoint.
+  limits:
+  - endpoint: POST /accounts/metrics/predicted-score
+    limit_count: 140
+    period: minute
+    per: partner
+note: The published rate-limit table is the authoritative and complete source; the entries
+  above are the values quoted in the Knewton rate-limits documentation and are not exhaustive
+  of every endpoint.
+entity_limits:
+  docs: https://dev.knewton.com/implementation/entity-limits/
+  limits:
+  - entity: Any character field (e.g. learning instance name)
+    max: 256
+    unit: characters
+  - entity: Modules per graph
+    max: 20000
+  - entity: Concepts per graph
+    max: 2000
+  - entity: Graphs per learning instance
+    max: 1
+  - entity: Goals assigned per registration (total)
+    max: 200
+  - entity: Goals assigned per registration (with config.analytics_enabled true)
+    max: 50
+  - entity: Goals per learning instance
+    max: 5000
+  - entity: Registrations per account
+    max: 500
+  - entity: Student events per batch
+    max: 500
+  - entity: Modules returned per recommendation
+    max: 10
+  exceeded_behavior: An error is thrown when these limits are reached; entity-limit
+    violations surface as HTTP 422 Unprocessable Entity.

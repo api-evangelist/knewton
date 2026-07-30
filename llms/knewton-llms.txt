@@ -1,0 +1,65 @@
+# Knewton
+
+> Knewton is an adaptive learning technology company (founded 2008, acquired by John Wiley & Sons in 2019) whose Knewton Enterprise Platform API lets partner learning applications stream learner interaction and performance data to Knewton and receive continuously personalized content recommendations and predictive analytics in return. The REST API is versioned at v0 and authenticated with OAuth 2.0 client-credentials tokens.
+
+Knewton maps the pedagogical relationships between the concepts in a partner's content into a knowledge graph, then uses that graph to interpret incoming student events and recommend the next modules a learner should work on. Partner credentials are provisioned by a Knewton representative; there is no self-service sign-up. External user IDs sent to Knewton must be fully anonymized and must never contain PII.
+
+## APIs
+
+- [Knewton Enterprise Platform API](https://dev.knewton.com/): REST API v0. Production global `https://api.knewton.com/v0`, EMEA `https://api.knewton.ie/v0`, sandbox `https://dev-api.knewton.com/v0`. JSON only.
+
+## Docs
+
+- [Developer portal](https://dev.knewton.com/): Knewton Enterprise Platform documentation home.
+- [Implementation guide](https://dev.knewton.com/implementation/): Getting started, credentials, accounts, learning instances, events, goals, recommendations, analytics.
+- [API reference](https://dev.knewton.com/reference/): Per-resource endpoint reference.
+- [Getting started](https://dev.knewton.com/implementation/getting-started/): First integration walkthrough.
+- [Partner credentials](https://dev.knewton.com/implementation/partner-credentials/): Obtaining an API key and secret.
+- [Authentication reference](https://dev.knewton.com/reference/authentication/): OAuth token endpoint, grants, token lifetime.
+- [Basic API usage](https://dev.knewton.com/reference/basic-api-usage/): Hostnames, version prefix, content types.
+- [Rate limits](https://dev.knewton.com/implementation/rate-limits/): IP, token and partner limit classes.
+- [Entity limits](https://dev.knewton.com/implementation/entity-limits/): Maximum modules, goals, registrations, batch sizes.
+- [Error handling](https://dev.knewton.com/implementation/error-handling/): Status codes and retry guidance.
+- [API versioning](https://dev.knewton.com/implementation/api-versioning/): Release-candidate and LTS policy.
+- [Testing](https://dev.knewton.com/implementation/testing/): Sandbox host, test accounts, load testing.
+- [Adaptive content](https://dev.knewton.com/content/): Content IDs, taxonomies, graph best practices.
+- [Support](https://support.knewton.com/s/): Knewton support portal.
+- [Status](https://status.knewton.com/): Platform status page.
+
+## Resources
+
+- Accounts — `POST /accounts`, `GET /accounts/{account_id}`, `GET /accounts/current`, `DELETE /accounts/{account_id}`
+- Learning instances — `POST /learning-instances`, `GET|PUT|DELETE /learning-instances/{id}`, `GET /learning-instances/{li_id}/registrations`
+- Registrations — `POST /registrations`, `GET|DELETE /registrations/{reg_id}`
+- Goals — `POST|PUT|DELETE /learning-instances/{li_id}/scoped-goals[/{goal_id}]`, plus goal-to-registration assignment
+- Events — `POST /registrations/{id}/graded-events`, `/ungraded-events`, `/recommendation-followed-events`, `/batch-events`
+- Recommendations — `GET /registrations/{reg_id}/recommendation?goal_id={goal_id}`
+- Status and progress — `POST /learning-instances/{li_id}/metrics/status-and-progress`, `POST /registrations/{reg_id}/metrics/status-and-progress`
+- Predicted score — `POST /accounts/metrics/predicted-score`
+
+## Conventions
+
+- Auth: `POST /oauth/token` with `Authorization: Basic base64(api_key:api_secret)`, grant `client_credentials` or `refresh_token`. The `scope` parameter carries an external user account ID, not a permission scope.
+- Errors: `application/json` with `message` and `error_id`. Not RFC 9457.
+- Rate limiting: HTTP 429 with `X-Knewton-Rate-Exceeded` and `X-Knewton-Rate-Delay`. No `Retry-After`.
+- Pagination: offset-based on the status-and-progress metrics endpoints (`registration_offset`, `registrations_per_page`, `next`).
+- Idempotency: not supported; Knewton documents no idempotency key.
+- Testing: send `X-Knewton-Test: true` on `POST /accounts` to create a test account; a learning instance is a test instance if its first registered account is a test account.
+
+## API Evangelist artifacts
+
+- [apis.yml](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/apis.yml)
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/authentication/knewton-authentication.yml)
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/conventions/knewton-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/errors/knewton-problem-types.yml)
+- [Rate limits](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/rate-limits/knewton-rate-limits.yml)
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/lifecycle/knewton-lifecycle.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/data-model/knewton-data-model.yml)
+- [Sandbox](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/sandbox/knewton-sandbox.yml)
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/conformance/knewton-conformance.yml)
+- [Agent skills](https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/skills/_index.yml)
+
+## Notes
+
+- Knewton publishes no OpenAPI or AsyncAPI definition, no first-party SDKs, no CLI, no public Postman collection, no webhooks, and no `/.well-known/` discovery documents.
+- www.knewton.com redirects to Wiley's Knewton alta courseware pages; dev.knewton.com remains the live developer surface.

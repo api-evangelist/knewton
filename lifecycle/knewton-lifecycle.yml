@@ -1,0 +1,64 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/implementation/api-versioning/
+versioning:
+  scheme: uri-path
+  current: v0
+  path_pattern: <hostname>/<version>/
+  docs: https://dev.knewton.com/implementation/api-versioning/
+  release_model:
+    stages:
+    - name: release candidate
+      duration: six months
+      description: A new API version enters a six-month release-candidate period for partner
+        feedback.
+    - name: long-term support (LTS)
+      description: After promotion to LTS status the previous LTS version receives 12 months
+        of continued support.
+  non_breaking_changes:
+  - New optional JSON keys may be added to request bodies.
+  - Additional parameters may be added to response bodies.
+  - New endpoints may be added.
+  - Algorithm and parameter adjustments affecting recommendation and analytics responses.
+  compatibility_guarantee: Existing header, path, and request body parameter keys and formats
+    will not change within the current version of the API.
+deprecation:
+  policy_url: https://dev.knewton.com/implementation/api-versioning/
+  sunset_header: false
+  deprecation_header: false
+  support_window: 12 months of continued support for the previous LTS version after a new
+    version is promoted to LTS.
+  exceptions: Security, intellectual property, legal compliance or other critical issues may
+    require immediate updates outside the normal window.
+deprecated_operations:
+- operation: POST /batch
+  description: Batch account creation (up to 50 accounts).
+  source: https://dev.knewton.com/reference/accounts/
+- operation: POST /registrations/{id}/focus-events
+  description: Focus event. Goals now automatically focus whenever a recommendation is
+    requested for the goal.
+  source: https://dev.knewton.com/reference/events/
+deprecated_fields:
+- field: focus_state
+  on: GET /registrations/{reg_id}/recommendation
+  description: Deprecated field indicating goal focus state.
+- field: in_progress
+  on: learning-instances
+  description: Deprecated; always true.
+status_page: https://status.knewton.com/
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime target is published on the Knewton developer site; SLAs are
+    handled in partner agreements.
+changelog:
+  published: false
+  note: The dev.knewton.com sitemap contains no changelog or release-notes page. Version
+    transitions are communicated through the API versioning policy and partner channels.
+company_lifecycle:
+  founded: 2008
+  acquired_by: John Wiley & Sons
+  acquired: 2019
+  current_product_line: Knewton alta
+  note: www.knewton.com now redirects to the Wiley Knewton alta courseware pages. The
+    Knewton Enterprise Platform developer documentation at dev.knewton.com remains live.

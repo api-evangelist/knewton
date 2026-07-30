@@ -1,0 +1,52 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/implementation/testing/
+docs: https://dev.knewton.com/implementation/testing/
+environments:
+- name: sandbox
+  host: dev-api.knewton.com
+  base_url: https://dev-api.knewton.com/v0
+  description: Your testing environments should be configured to send Knewton API requests
+    to dev-api.knewton.com.
+- name: production-global
+  host: api.knewton.com
+  base_url: https://api.knewton.com/v0
+- name: production-emea
+  host: api.knewton.ie
+  base_url: https://api.knewton.ie/v0
+  note: Documented as the EMEA production host; the hostname did not resolve publicly at
+    probe time (2026-07-19), consistent with partner-restricted DNS.
+credentials:
+  self_service: false
+  separate_test_keys: false
+  note: Knewton does not publish self-service sandbox credentials or a test/live key prefix
+    scheme. Partner API key and secret are provisioned by a Knewton representative and the
+    environment is selected by hostname, not by key prefix.
+test_markers:
+- name: X-Knewton-Test
+  type: request-header
+  value: 'true'
+  applies_to: POST /accounts
+  usage: Use this header only in the POST request made when creating user accounts.
+  effect: Marks the created account as a test account.
+propagation:
+  rule: A learning instance is classified as a test instance if the first account that is
+    registered to it is a test account.
+load_testing:
+  supported: true
+  environment: sandbox
+  behaviors:
+  - condition: Event thresholds exceeded for over 3 minutes during a load test
+    effect: The system returns HTTP 204 for every event, and these events will not be
+      persisted or processed.
+  - condition: Load-test mock recommendations
+    effect: Recommendations are mocked - recommendation_id values are randomly generated
+      and focus_state is always set to "focused".
+    header: 'X-Knewton-Rate-Exceeded: partner-soft-limited'
+  guidance: Contact your Knewton Implementation Architect for load-testing best practices
+    and specific requirements.
+test_data:
+  magic_values: []
+  note: Knewton publishes no magic test identifiers, test cards, or fixture values. Test
+    data is the partner's own anonymized external user IDs and the partner's own content
+    graph. Nothing is invented here.

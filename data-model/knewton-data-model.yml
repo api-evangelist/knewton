@@ -1,0 +1,247 @@
+generated: '2026-07-19'
+method: derived
+source: https://dev.knewton.com/reference/
+note: Knewton publishes no OpenAPI definition. This entity graph is derived from the
+  published API reference pages (accounts, learning-instances, registrations, goals, events,
+  recommendations, status-and-progress, predicted-score) rather than from a machine-readable
+  spec. Field names are quoted from those pages.
+id_style: uuid
+entities:
+- name: Account
+  description: A partner user, identified to Knewton only by an anonymized external ID.
+  id_field: id
+  id_type: uuid
+  fields:
+  - id
+  - external_user_id
+  - entitlements
+  endpoints:
+  - POST /accounts
+  - GET /accounts/{account_id}
+  - GET /accounts/current
+  - DELETE /accounts/{account_id}
+  relationships:
+  - type: has_many
+    target: Registration
+    via: account_id
+- name: LearningInstance
+  description: A course or context grouping that teaches one knowledge graph and gathers
+    the learners and instructors working through it.
+  id_field: id
+  id_type: uuid
+  fields:
+  - id
+  - graph_id
+  - name
+  - start_date
+  - end_date
+  - in_progress
+  endpoints:
+  - POST /learning-instances
+  - GET /learning-instances/{id}
+  - PUT /learning-instances/{id}
+  - DELETE /learning-instances/{id}
+  - GET /learning-instances/{li_id}/registrations
+  relationships:
+  - type: belongs_to
+    target: Graph
+    via: graph_id
+  - type: has_many
+    target: Registration
+    via: learning_instance_id
+  - type: has_many
+    target: Goal
+    via: li_id
+- name: Registration
+  description: The association of an account with a learning instance, as either a learner
+    or an instructor. The unit that events, recommendations and progress hang off.
+  id_field: id
+  id_type: uuid
+  fields:
+  - id
+  - account_id
+  - learning_instance_id
+  - type
+  enums:
+    type:
+    - learner
+    - instructor
+  endpoints:
+  - POST /registrations
+  - GET /registrations/{reg_id}
+  - DELETE /registrations/{reg_id}
+  - GET /learning-instances/{li_id}/registrations
+  relationships:
+  - type: belongs_to
+    target: Account
+    via: account_id
+  - type: belongs_to
+    target: LearningInstance
+    via: learning_instance_id
+  - type: has_many
+    target: StudentEvent
+    via: registration id path parameter
+  - type: has_many
+    target: Recommendation
+    via: reg_id
+- name: Goal
+  description: A scoped adaptive assignment objective defined over targets and topics within
+    a learning instance's graph.
+  id_field: id
+  id_type: uuid
+  fields:
+  - id
+  - last_updated
+  - name
+  - targets
+  - topics
+  - scope
+  - config
+  - completion_criteria
+  - adaptive_behavior
+  endpoints:
+  - POST /learning-instances/{li_id}/scoped-goals
+  - PUT /learning-instances/{li_id}/scoped-goals/{goal_id}
+  - DELETE /learning-instances/{li_id}/scoped-goals/{goal_id}
+  - PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
+  - GET /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
+  - DELETE /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
+  - PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations
+  relationships:
+  - type: belongs_to
+    target: LearningInstance
+    via: li_id
+  - type: has_many
+    target: Registration
+    via: goal assignment
+  - type: has_many
+    target: LearningObjective
+    via: targets
+- name: StudentEvent
+  description: A learner interaction with a content module, graded or ungraded, plus
+    recommendation-followed signals.
+  id_field: null
+  fields:
+  - module_id
+  - interaction_end_time
+  - duration
+  - is_complete
+  - is_correct
+  - instance_hash
+  - goal_id
+  - recommendation_id
+  - time_followed
+  endpoints:
+  - POST /registrations/{id}/graded-events
+  - POST /registrations/{id}/ungraded-events
+  - POST /registrations/{id}/recommendation-followed-events
+  - POST /registrations/{id}/focus-events
+  - POST /registrations/{id}/batch-events
+  relationships:
+  - type: belongs_to
+    target: Registration
+    via: registration id path parameter
+  - type: belongs_to
+    target: Module
+    via: module_id
+  - type: belongs_to
+    target: Goal
+    via: goal_id
+  - type: belongs_to
+    target: Recommendation
+    via: recommendation_id
+- name: Recommendation
+  description: The personalized, ordered set of modules Knewton returns for a registration
+    working toward a goal.
+  id_field: recommendation_id
+  id_type: long
+  fields:
+  - recommendation_id
+  - module_ids
+  - status
+  - focus_state
+  - stuck
+  - justifications
+  enums:
+    status:
+    - unfocused
+    - in progress
+    - ready
+  endpoints:
+  - GET /registrations/{reg_id}/recommendation
+  relationships:
+  - type: belongs_to
+    target: Registration
+    via: reg_id
+  - type: belongs_to
+    target: Goal
+    via: goal_id
+  - type: has_many
+    target: Module
+    via: module_ids
+- name: Graph
+  description: The knowledge graph mapping the pedagogical relationships between the concepts
+    in a partner's content.
+  id_field: graph_id
+  id_type: uuid or gref- string
+  endpoints: []
+  docs: https://dev.knewton.com/content/
+  relationships:
+  - type: has_many
+    target: Module
+  - type: has_many
+    target: LearningObjective
+- name: LearningObjective
+  description: A learning objective (lref) within a graph, the unit targets and predicted
+    scores are expressed over.
+  id_field: learning_objective_id
+  id_type: lref string
+  relationships:
+  - type: belongs_to
+    target: Graph
+  - type: has_many
+    target: Module
+- name: Module
+  description: A partner content item (lesson, homework or assessment item) that can be
+    recommended and evented against.
+  id_field: module_id
+  id_type: string
+  docs: https://dev.knewton.com/content/content-IDs/
+  relationships:
+  - type: belongs_to
+    target: LearningObjective
+- name: PredictedScore
+  description: Predictive learner analytics over grouped learning objectives.
+  fields:
+  - account_scores
+  - group_scores
+  - learning_objective_scores
+  - overall_score
+  - overall_learning_objective_coverage
+  endpoints:
+  - POST /accounts/metrics/predicted-score
+  relationships:
+  - type: belongs_to
+    target: Account
+    via: account_ids
+  - type: belongs_to
+    target: LearningObjective
+    via: grouped_learning_objectives
+- name: StatusAndProgress
+  description: Goal status and progress analytics for a registration or across a learning
+    instance.
+  fields:
+  - query
+  - column_headers
+  - data
+  - next
+  endpoints:
+  - POST /learning-instances/{li_id}/metrics/status-and-progress
+  - POST /registrations/{reg_id}/metrics/status-and-progress
+  relationships:
+  - type: belongs_to
+    target: Registration
+    via: registration_id
+  - type: belongs_to
+    target: Goal
+    via: goal_ids

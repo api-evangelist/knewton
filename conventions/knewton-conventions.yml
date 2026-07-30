@@ -1,0 +1,111 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/reference/basic-api-usage/
+docs:
+- https://dev.knewton.com/reference/basic-api-usage/
+- https://dev.knewton.com/implementation/error-handling/
+- https://dev.knewton.com/implementation/rate-limits/
+- https://dev.knewton.com/implementation/api-versioning/
+authentication:
+  style: oauth2-client-credentials
+  token_endpoint: /oauth/token
+  client_auth: HTTP Basic with base64(api_key:api_secret)
+  request_credential: bearer access token
+  detail: authentication/knewton-authentication.yml
+base_urls:
+  production_global: https://api.knewton.com
+  production_emea: https://api.knewton.ie
+  sandbox: https://dev-api.knewton.com
+  path_pattern: <hostname>/<version>/
+  example: POST https://api.knewton.com/v0/accounts
+content_type:
+  request: application/json
+  response: application/json
+  only_supported: application/json
+  utf8_note: For UTF-8 encoded content IDs set the header to "application/json;charset=UTF-8".
+identifiers:
+  style: uuid
+  description: Knewton generates and returns UUIDs for Account ID, Learning Instance ID,
+    Registration ID, Goal ID and Recommendation ID. Partners must store these for use in
+    subsequent calls.
+  external_ids:
+    field: external_user_id
+    constraint: Must be unique across all accounts created by the calling partner.
+    pii_rule: External IDs must be completely anonymized and must never contain any
+      personally identifiable information (PII).
+  content_ids:
+    module_id: Partner content module identifier.
+    graph_id: uuid or gref- prefixed string.
+    learning_objective_id: lref identifier.
+idempotency:
+  supported: false
+  header: null
+  note: Knewton documents no idempotency key header or request-replay contract. Event
+    submission is append-only; duplicate event posts are not deduplicated by an idempotency
+    key. On a 429 the documentation states Knewton has not processed any part of the request,
+    which makes a plain resend safe in that specific case.
+pagination:
+  supported: true
+  style: offset
+  applies_to:
+  - POST /learning-instances/{li_id}/metrics/status-and-progress
+  request_params:
+  - name: registration_offset
+    type: int
+    default: 0
+  - name: registrations_per_page
+    type: int
+    default: 100
+    max: 100
+  response_field: next
+  response_field_shape: An object carrying registration_offset and registrations_per_page
+    for the following page; absent on the last page.
+batching:
+  supported: true
+  endpoints:
+  - path: POST /registrations/{id}/batch-events
+    max_items: 500
+    ordering: Events must be listed in reverse chronological order (most recent event first).
+    event_types:
+    - graded-events
+    - ungraded-events
+    - recommendation-followed
+  - path: POST /batch
+    status: deprecated
+    max_items: 50
+    note: Create up to 50 accounts in a single batch request. Marked deprecated.
+  partial_success:
+    status: 207
+    description: Partially Accepted; parse the response body to identify successful and
+      failed parts.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  note: No free-form metadata field is documented on Knewton resources.
+request_tracing:
+  request_id_header: null
+  error_correlation_field: error_id
+  note: Knewton does not document a request-id request header. Errors return an error_id
+    in the body for support correlation.
+versioning:
+  scheme: uri-path
+  current: v0
+  release_model: release candidate then long-term support (LTS)
+  detail: lifecycle/knewton-lifecycle.yml
+error_envelope:
+  format: custom
+  fields:
+  - message
+  - error_id
+  detail: errors/knewton-problem-types.yml
+rate_limit_signaling:
+  status_code: 429
+  headers:
+  - X-Knewton-Rate-Exceeded
+  - X-Knewton-Rate-Delay
+  retry_after: false
+  detail: rate-limits/knewton-rate-limits.yml
+testing:
+  header: 'X-Knewton-Test: true'
+  detail: sandbox/knewton-sandbox.yml

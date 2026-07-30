@@ -1,0 +1,81 @@
+generated: '2026-07-19'
+method: searched
+source: https://dev.knewton.com/implementation/error-handling/
+docs: https://dev.knewton.com/implementation/error-handling/
+format: custom
+format_note: Knewton does not use RFC 9457 application/problem+json. Error responses are
+  application/json and carry an error message plus an error_id for support correlation.
+envelope:
+  content_type: application/json
+  fields:
+  - name: message
+    description: Human-readable error message.
+  - name: error_id
+    description: Identifier for the error occurrence, used when contacting Knewton support.
+success_codes:
+- status: 200
+  title: OK
+  description: Successful completion.
+- status: 201
+  title: Created
+  description: Resource creation succeeded.
+- status: 202
+  title: Accepted
+  description: Asynchronous processing initiated.
+- status: 204
+  title: No Content
+  description: Success with no return data.
+- status: 207
+  title: Partially Accepted
+  description: Parse the response body to identify the successful and failed parts of the
+    request.
+  retryable: partial
+problems:
+- status: 400
+  title: Bad Request
+  description: The request was malformed.
+  remediation: Fix the request in application code; do not retry unchanged.
+  retryable: false
+- status: 401
+  title: Unauthorized
+  description: The access token is missing, expired or invalid.
+  remediation: Refresh the access token or retrieve a new token, then retry.
+  retryable: true
+- status: 403
+  title: Forbidden
+  description: The authenticated user lacks permission for the operation.
+  remediation: Check the account entitlements; apply a fallback pattern rather than retrying.
+  retryable: false
+- status: 404
+  title: Not Found
+  description: The resource does not exist or is not accessible to the caller.
+  remediation: Verify the UUID being referenced.
+  retryable: false
+- status: 405
+  title: Method Not Allowed
+  description: The HTTP method is not valid for the path.
+  remediation: Correct the HTTP method.
+  retryable: false
+- status: 422
+  title: Unprocessable Entity
+  description: Invalid JSON, or an entity limit was exceeded.
+  remediation: Validate the payload and check entity limits.
+  retryable: false
+  related: https://dev.knewton.com/implementation/entity-limits/
+- status: 429
+  title: Too Many Requests
+  description: A rate limit was exceeded. The X-Knewton-Rate-Exceeded header names the limit
+    class. Knewton has not processed any part of the request.
+  remediation: Wait for quota to replenish and retry with exponential backoff.
+  retryable: true
+  related: rate-limits/knewton-rate-limits.yml
+- status: 500
+  title: Internal Server Error
+  description: Server-side issue.
+  remediation: Combine a retry with a fallback strategy.
+  retryable: true
+retry_policy:
+  four_xx: Do not retry 4xx errors other than 401 and 429 without a code change; they
+    indicate an application bug.
+  four_twenty_nine: Retry with exponential backoff.
+  five_xx: Treat as temporary; retry with a fallback strategy.

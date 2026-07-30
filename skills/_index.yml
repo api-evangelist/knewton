@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: generated
+source: https://dev.knewton.com/reference/
+note: Knewton publishes no OpenAPI definition and no provider-published agent skills or
+  AGENTS.md. These skills are grounded in the documented HTTP method and path of every
+  operation on the published API reference; no operation, field or test value is invented.
+skills:
+- file: knewton-onboard-learner-and-recommend.md
+  name: Onboard a learner and get an adaptive recommendation
+  api: https://api.knewton.com/v0
+  docs: https://dev.knewton.com/implementation/getting-started/
+  operations:
+  - POST /oauth/token
+  - POST /accounts
+  - POST /learning-instances
+  - POST /registrations
+  - POST /learning-instances/{li_id}/scoped-goals
+  - PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
+  - GET /registrations/{reg_id}/recommendation
+- file: knewton-stream-events-and-track-progress.md
+  name: Stream student events and track goal progress
+  api: https://api.knewton.com/v0
+  docs: https://dev.knewton.com/implementation/sending-events/
+  operations:
+  - POST /registrations/{id}/graded-events
+  - POST /registrations/{id}/ungraded-events
+  - POST /registrations/{id}/recommendation-followed-events
+  - POST /registrations/{id}/batch-events
+  - POST /registrations/{reg_id}/metrics/status-and-progress
+  - POST /learning-instances/{li_id}/metrics/status-and-progress
+  - POST /accounts/metrics/predicted-score

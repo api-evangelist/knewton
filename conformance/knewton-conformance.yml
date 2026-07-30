@@ -1,0 +1,77 @@
+generated: '2026-07-19'
+method: derived
+source: https://dev.knewton.com/reference/
+note: Derived from the published Knewton API reference. Knewton publishes no OpenAPI
+  definition and no certification or compliance program on its developer site, so no
+  Compliance pointer is emitted for this provider.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OAuth 2.0 token endpoint POST /oauth/token supporting the client_credentials and
+    refresh_token grants, with client authentication via HTTP Basic.
+  source: https://dev.knewton.com/reference/authentication/
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: grant_type=client_credentials documented.
+  source: https://dev.knewton.com/reference/authentication/
+- id: oauth2-scopes
+  conforms: false
+  evidence: The scope parameter is overloaded to carry an external user account ID rather
+    than a permission scope; no scope registry is published.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returned 404 on api.knewton.com and
+    dev-api.knewton.com.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404; no ID tokens or userinfo endpoint
+    documented.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are application/json with message and error_id fields; no
+    application/problem+json media type is documented.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on all probed Knewton hosts.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: The API versioning policy documents a release-candidate and LTS support window
+    but no Sunset or Deprecation response headers.
+- id: rest-json
+  conforms: true
+  evidence: Resource-oriented JSON REST over HTTPS; application/json is the only supported
+    content type.
+  source: https://dev.knewton.com/reference/basic-api-usage/
+- id: json-api
+  conforms: false
+  evidence: Responses use plain domain-shaped JSON, not the JSON:API document structure.
+- id: odata
+  conforms: false
+- id: pagination
+  conforms: true
+  evidence: Offset pagination on the status-and-progress metrics endpoints via
+    registration_offset and registrations_per_page with a next object in the response.
+  source: https://dev.knewton.com/reference/status-and-progress/
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key header or request-replay contract is documented.
+- id: rate-limit-headers
+  conforms: partial
+  evidence: 429 responses carry proprietary X-Knewton-Rate-Exceeded and X-Knewton-Rate-Delay
+    headers; no RFC 9331 RateLimit headers and no Retry-After.
+  source: https://dev.knewton.com/implementation/rate-limits/
+- id: lti-1.3
+  conforms: unverified
+  evidence: The Knewton alta courseware product documents LTI 1.3 admin integration guides
+    for Canvas, Blackboard, Brightspace and Moodle on support.knewton.com. This is the alta
+    end-user product, not the Enterprise Platform API surface profiled here, and 1EdTech
+    lists no active certification for Knewton Alta.
+  source: https://site.imsglobal.org/certifications/wiley/knewton-alta
+certifications: []
+certifications_note: 1EdTech's product page for Knewton Alta states the product has no active
+  certifications. No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP claims are published on the
+  Knewton developer or product surface.
+privacy:
+  pii_rule: External IDs must be completely anonymized and must never contain any personally
+    identifiable information (PII).
+  source: https://dev.knewton.com/reference/accounts/

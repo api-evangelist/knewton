@@ -1,0 +1,68 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of /.well-known/* on every Knewton host in apis.yml and the documented
+  API base URLs
+result: none
+note: No /.well-known/ discovery document is published on any Knewton host. Every probe
+  returned 404, except www.knewton.com which returns 302 redirects into the Wiley marketing
+  site (not a well-known document). Recorded as valid negative data; nothing fabricated.
+hosts:
+- host: https://api.knewton.com
+  role: production API (global)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://dev-api.knewton.com
+  role: sandbox API
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://dev.knewton.com
+  role: developer portal / documentation
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://www.knewton.com
+  role: company website (redirects to Wiley)
+  documents:
+  - path: /.well-known/security.txt
+    status: 302
+  - path: /.well-known/openid-configuration
+    status: 302
+  - path: /.well-known/oauth-authorization-server
+    status: 302
+  - path: /.well-known/api-catalog
+    status: 302
+  - path: /.well-known/ai-plugin.json
+    status: 302
+- host: https://api.knewton.ie
+  role: production API (EMEA, documented)
+  resolution: NXDOMAIN
+  documents:
+  - path: /.well-known/security.txt
+    status: null
+    note: host did not resolve at probe time
