@@ -1,22 +1,85 @@
 aid: knewton
 name: Knewton
-description: 'Knewton is a company surfaced as a portfolio company of bessemer-venture-partners and added
-  to the API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: 'Knewton is an adaptive learning technology company founded in 2008 in New York City and
+  acquired by John Wiley & Sons in 2019, where it now ships as the Knewton alta courseware line. Its
+  developer-facing product is the Knewton Enterprise Platform API, documented at dev.knewton.com, which
+  lets partner learning applications send learner interaction and performance data to Knewton and receive
+  continuously personalized content recommendations and predictive analytics in return. The platform maps
+  the pedagogical relationships between concepts in a partner catalog into a knowledge graph, then uses
+  it to recommend modules, track goal status and progress, and generate predicted scores. The REST API
+  is versioned at v0, uses OAuth 2.0 client-credentials tokens, and exposes accounts, learning instances,
+  registrations, scoped goals, graded and ungraded student events, recommendations, status-and-progress
+  metrics, and predicted score.'
 url: https://raw.githubusercontent.com/api-evangelist/knewton/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - bessemer-venture-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: live-developer-platform
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://dev.knewton.com/knewton-theme/assets/images/layout/logo-kw.svg
 tags:
 - Company
 - Consumer
-apis: []
+- Education
+- EdTech
+- Adaptive Learning
+- Learning Analytics
+- Machine Learning
+- Recommendations
+- Courseware
+- Higher Education
+apis:
+- aid: knewton:enterprise-platform
+  name: Knewton Enterprise Platform API
+  description: 'The Knewton Enterprise Platform REST API (v0) that partner learning applications integrate
+    with to deliver continuously adaptive learning. Partners create anonymized user accounts, establish
+    learning instances against a Knewton knowledge graph, register learners and instructors, define scoped
+    goals over learning objectives, stream graded and ungraded student events, and then retrieve
+    personalized module recommendations, goal status-and-progress analytics, and predicted scores. Access
+    is authenticated with OAuth 2.0 client-credentials tokens issued from partner API key and secret
+    credentials provisioned by a Knewton representative.'
+  humanURL: https://dev.knewton.com/
+  baseURL: https://api.knewton.com/v0
+  tags:
+  - Adaptive Learning
+  - Recommendations
+  - Learning Analytics
+  - Education
+  properties:
+  - type: Documentation
+    url: https://dev.knewton.com/
+  - type: APIReference
+    url: https://dev.knewton.com/reference/
+  - type: GettingStarted
+    url: https://dev.knewton.com/implementation/getting-started/
+  - type: Authentication
+    url: authentication/knewton-authentication.yml
+  - type: RateLimits
+    url: rate-limits/knewton-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/knewton-problem-types.yml
+  - type: Conventions
+    url: conventions/knewton-conventions.yml
+  - type: DataModel
+    url: data-model/knewton-data-model.yml
+  - type: Sandbox
+    url: sandbox/knewton-sandbox.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +88,56 @@ maintainers:
 common:
 - type: Website
   url: https://www.knewton.com/
+- type: DeveloperPortal
+  url: https://dev.knewton.com/
+- type: Documentation
+  url: https://dev.knewton.com/
+- type: APIReference
+  url: https://dev.knewton.com/reference/
+- type: GettingStarted
+  url: https://dev.knewton.com/implementation/getting-started/
+- type: Support
+  url: https://support.knewton.com/s/
+- type: StatusPage
+  url: https://status.knewton.com/
+- type: Deprecation
+  url: https://dev.knewton.com/implementation/api-versioning/
+- type: TermsOfService
+  url: https://www.wiley.com/en-us/legal/terms
+- type: PrivacyPolicy
+  url: https://www.wiley.com/en-us/legal/privacy
+- type: Authentication
+  url: authentication/knewton-authentication.yml
+- type: OAuthScopes
+  url: scopes/knewton-scopes.yml
+- type: RateLimits
+  url: rate-limits/knewton-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/knewton-problem-types.yml
+- type: Conventions
+  url: conventions/knewton-conventions.yml
+- type: Lifecycle
+  url: lifecycle/knewton-lifecycle.yml
+- type: Sandbox
+  url: sandbox/knewton-sandbox.yml
+- type: DataModel
+  url: data-model/knewton-data-model.yml
+- type: Conformance
+  url: conformance/knewton-conformance.yml
+- type: Packages
+  url: packages/knewton-packages.yml
+- type: WellKnown
+  url: well-known/knewton-well-known.yml
+- type: MCPServer
+  url: mcp/knewton-mcp.yml
+- type: LLMsTxt
+  url: llms/knewton-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/knewton-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
