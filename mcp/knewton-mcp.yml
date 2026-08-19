@@ -2,10 +2,9 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: https://dev.knewton.com/reference/
-note: Knewton publishes no official hosted or remote MCP server. This is a candidate tool
-  surface derived from the published API reference (Knewton ships no OpenAPI definition, so
-  source_operation values are documented HTTP method + path, not operationIds). Not a
-  provider claim.
+note: Knewton publishes no official hosted or remote MCP server. This is a candidate tool surface derived
+  from the published API reference (Knewton ships no OpenAPI definition, so source_operation values are
+  documented HTTP method + path, not operationIds). Not a provider claim.
 server:
   name: knewton
   transport: http
@@ -15,111 +14,115 @@ server:
 tools:
 - name: create_account
   description: Create a new anonymized partner user account.
-  source_operation: 'POST /accounts'
+  source_operation: POST /accounts
   consequence: write
 - name: get_account
   description: Retrieve an account and its entitlements by ID.
-  source_operation: 'GET /accounts/{account_id}'
+  source_operation: GET /accounts/{account_id}
   consequence: read
 - name: get_current_account
   description: Retrieve the account of the calling user.
-  source_operation: 'GET /accounts/current'
+  source_operation: GET /accounts/current
   consequence: read
 - name: disable_account
   description: Disable an account and mark it inactive.
-  source_operation: 'DELETE /accounts/{account_id}'
+  source_operation: DELETE /accounts/{account_id}
   consequence: write
 - name: create_learning_instance
   description: Create a learning instance against a knowledge graph.
-  source_operation: 'POST /learning-instances'
+  source_operation: POST /learning-instances
   consequence: write
 - name: get_learning_instance
   description: Retrieve a learning instance.
-  source_operation: 'GET /learning-instances/{id}'
+  source_operation: GET /learning-instances/{id}
   consequence: read
 - name: update_learning_instance
   description: Update a learning instance name or dates.
-  source_operation: 'PUT /learning-instances/{id}'
+  source_operation: PUT /learning-instances/{id}
   consequence: write
 - name: delete_learning_instance
   description: Delete a learning instance.
-  source_operation: 'DELETE /learning-instances/{id}'
+  source_operation: DELETE /learning-instances/{id}
   consequence: write
 - name: list_learning_instance_registrations
   description: List the registrations on a learning instance, optionally filtered by type.
-  source_operation: 'GET /learning-instances/{li_id}/registrations'
+  source_operation: GET /learning-instances/{li_id}/registrations
   consequence: read
 - name: create_registration
   description: Register an account to a learning instance as a learner or instructor.
-  source_operation: 'POST /registrations'
+  source_operation: POST /registrations
   consequence: write
 - name: get_registration
   description: Retrieve a registration.
-  source_operation: 'GET /registrations/{reg_id}'
+  source_operation: GET /registrations/{reg_id}
   consequence: read
 - name: delete_registration
   description: Delete a registration.
-  source_operation: 'DELETE /registrations/{reg_id}'
+  source_operation: DELETE /registrations/{reg_id}
   consequence: write
 - name: create_goal
   description: Create a scoped goal on a learning instance.
-  source_operation: 'POST /learning-instances/{li_id}/scoped-goals'
+  source_operation: POST /learning-instances/{li_id}/scoped-goals
   consequence: write
 - name: update_goal
   description: Update an existing scoped goal.
-  source_operation: 'PUT /learning-instances/{li_id}/scoped-goals/{goal_id}'
+  source_operation: PUT /learning-instances/{li_id}/scoped-goals/{goal_id}
   consequence: write
 - name: delete_goal
   description: Delete a scoped goal.
-  source_operation: 'DELETE /learning-instances/{li_id}/scoped-goals/{goal_id}'
+  source_operation: DELETE /learning-instances/{li_id}/scoped-goals/{goal_id}
   consequence: write
 - name: assign_goal_to_registration
   description: Assign a goal to a single registration.
-  source_operation: 'PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}'
+  source_operation: PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
   consequence: write
 - name: check_goal_assignment
   description: Check whether a goal is assigned to a registration.
-  source_operation: 'GET /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}'
+  source_operation: GET /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
   consequence: read
 - name: unassign_goal_from_registration
   description: Unassign a goal from a registration.
-  source_operation: 'DELETE /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}'
+  source_operation: DELETE /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations/{reg_id}
   consequence: write
 - name: bulk_assign_goal
   description: Assign or unassign a goal across multiple registrations.
-  source_operation: 'PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations'
+  source_operation: PUT /learning-instances/{li_id}/scoped-goals/{goal_id}/registrations
   consequence: write
 - name: send_graded_event
   description: Record a graded learner interaction with a content module.
-  source_operation: 'POST /registrations/{id}/graded-events'
+  source_operation: POST /registrations/{id}/graded-events
   consequence: write
 - name: send_ungraded_event
   description: Record an ungraded learner interaction with a content module.
-  source_operation: 'POST /registrations/{id}/ungraded-events'
+  source_operation: POST /registrations/{id}/ungraded-events
   consequence: write
 - name: send_recommendation_followed_event
   description: Record that a learner followed a recommended module.
-  source_operation: 'POST /registrations/{id}/recommendation-followed-events'
+  source_operation: POST /registrations/{id}/recommendation-followed-events
   consequence: write
 - name: send_batch_events
   description: Submit up to 500 events in reverse chronological order.
-  source_operation: 'POST /registrations/{id}/batch-events'
+  source_operation: POST /registrations/{id}/batch-events
   consequence: write
 - name: get_recommendation
-  description: Get personalized module recommendations for a registration working toward a
-    goal.
-  source_operation: 'GET /registrations/{reg_id}/recommendation'
+  description: Get personalized module recommendations for a registration working toward a goal.
+  source_operation: GET /registrations/{reg_id}/recommendation
   consequence: read
 - name: get_learning_instance_status_and_progress
-  description: Retrieve goal status and progress across the registrations on a learning
-    instance, paginated.
-  source_operation: 'POST /learning-instances/{li_id}/metrics/status-and-progress'
+  description: Retrieve goal status and progress across the registrations on a learning instance, paginated.
+  source_operation: POST /learning-instances/{li_id}/metrics/status-and-progress
   consequence: read
 - name: get_registration_status_and_progress
   description: Retrieve goal status and progress for one registration.
-  source_operation: 'POST /registrations/{reg_id}/metrics/status-and-progress'
+  source_operation: POST /registrations/{reg_id}/metrics/status-and-progress
   consequence: read
 - name: get_predicted_score
   description: Retrieve predicted scores for accounts over grouped learning objectives.
-  source_operation: 'POST /accounts/metrics/predicted-score'
+  source_operation: POST /accounts/metrics/predicted-score
   consequence: read
+deployment:
+  mode: none
+  verified: derived
+  tools: 27
+  checked: '2026-08-12'
+  source: catalog MCP census
