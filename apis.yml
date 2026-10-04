@@ -52,7 +52,7 @@ tags:
 - EdTech
 - Adaptive Learning
 - Learning Analytics
-- Machine-Learning
+- Machine Learning
 - Recommendations
 - Courseware
 - Higher Education
@@ -67,6 +67,7 @@ tags_raw:
 - Recommendations
 - Courseware
 - Higher Education
+- Machine-Learning
 apis:
 - aid: knewton:enterprise-platform
   name: Knewton Enterprise Platform API
