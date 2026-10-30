@@ -64,6 +64,109 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Knewton is a company surfaced as a portfolio company of bessemer-venture-partners and added to the API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting the enrichment pipeline.
+Knewton is an adaptive learning technology company founded in 2008 in New York City and acquired by John Wiley & Sons in 2019, where it now ships as the Knewton alta courseware line. Its developer-facing product is the Knewton Enterprise Platform API, documented at dev.knewton.com, which lets partner learning applications send learner interaction and performance data to Knewton and receive continuously personalized content recommendations and predictive analytics in return. The platform maps the pedagogical relationships between concepts in a partner catalog into a knowledge graph, then uses it to recommend modules, track goal status and progress, and generate predicted scores. The REST API is versioned at v0, uses OAuth 2.0 client-credentials tokens, and exposes accounts, learning instances, registrations, scoped goals, graded and ungraded student events, recommendations, status-and-progress metrics, and predicted score.
 
-Backed by: bessemer-venture-partners — https://www.knewton.com/
+**Areas:** Company · Consumer · Education · EdTech · Adaptive Learning · Learning Analytics · Machine Learning · Recommendations · Courseware · Higher Education
+
+## Knewton on APIs.io
+
+Everything profiled for Knewton is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/knewton/](https://apis.io/providers/knewton/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Knewton Enterprise Platform API](https://apis.io/apis/knewton/enterprise-platform/) — The Knewton Enterprise Platform REST API (v0) that partner learning applications integrate with to deliver continuously adaptive learning. Partners create…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [knewton](https://apis.io/servers/knewton/knewton/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Knewton Authentication](https://apis.io/security/knewton/knewton-authentication/)
+- [Knewton Domain Security](https://apis.io/security/knewton/knewton-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Knewton Scopes](https://apis.io/scopes/knewton/knewton-scopes/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Knewton Rate Limits](https://apis.io/rate-limits/knewton/knewton-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.knewton.com/)
+- [Documentation](https://dev.knewton.com/)
+- [Getting started](https://dev.knewton.com/implementation/getting-started/)
+- [API reference](https://dev.knewton.com/reference/)
+- [Support](https://support.knewton.com/s/)
+- [Terms of service](https://www.wiley.com/en-us/legal/terms)
+- [Privacy policy](https://www.wiley.com/en-us/legal/privacy)
+- [Status](https://status.knewton.com/)
+
+## API Evangelist rating
+
+**Kin Score 28.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 55.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 8.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 31.8** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/knewton/](https://apis.io/providers/knewton/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Knewton: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/knewton/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
